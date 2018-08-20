@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Specialties</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/vendor/bootstrap/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/resources/style/navbar.css" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
+</head>
+<body>
+
+<div th:include="~{index.html :: navbar}"></div>
+
+<div class="row" >
+    <div class="columns">
+        <h2>Our specialties</h2>
+        <table class="stack">
+            <thead>
+            <tr>
+                <th width="300">Id</th>
+                <th width="150">Name</th>
+                <th width="150">Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="specialty : ${specialties}">
+                <td th:text="${specialty.id}"></td>
+                <td th:text="${specialty.name}"></td>
+                <td th:text="${specialty.number}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

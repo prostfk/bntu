@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculties</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/vendor/bootstrap/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/resources/style/navbar.css" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
+</head>
+<body>
+
+<div th:include="~{index.html::navbar}"></div>
+
+<div class="container">
+
+    <div class="row" >
+        <div class="columns">
+            <h2>Tables - Stacked</h2>
+            <p>To stack a table on small screens, add the class <code>.stack</code>.</p>
+            <table class="stack">
+                <thead>
+                <tr>
+                    <th width="300">Id</th>
+                    <th width="150">Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="faculty : ${faculties}">
+                    <td th:text="${faculty.id}"></td>
+                    <td><a th:text="${faculty.name}" th:href="'/faculty/' + ${faculty.id}"></a></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
