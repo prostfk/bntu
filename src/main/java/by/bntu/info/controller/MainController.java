@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -37,6 +44,28 @@ public class MainController {
     public ModelAndView getSpecialties(@PathVariable Long id){
         List<Specialty> specialtiesByFacultyId = specialtyRepository.findSpecialtiesByFacultyId(id);
         return new ModelAndView("specialties", "specialties", specialtiesByFacultyId);
+    }
+
+    @GetMapping(value = "/contacts")
+    public String getContacts(){
+        return "contacts";
+    }
+
+    @GetMapping(value = "/getTimeTable/{filename}")
+    public void download(@PathVariable String filename, HttpServletRequest request, HttpServletResponse response){
+        String filepath = "/resources/files/";
+        String dataDirectory = request.getServletContext().getRealPath(filepath);
+        Path file = Paths.get(dataDirectory, filename);
+        if (Files.exists(file)) {
+            response.setContentType(URLConnection.guessContentTypeFromName(filename));
+            response.addHeader("Content-Disposition", "attachment; filename=" + filename);
+            try {
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 }

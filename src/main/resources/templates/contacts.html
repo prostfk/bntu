@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/vendor/bootstrap/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/resources/style/navbar.css" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
+</head>
+<body>
+
+<div th:include="~{index.html::navbar}"></div>
+
+<div class="container">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+            <div class="cell medium-3">
+                <ul class="vertical tabs" data-tabs id="example-tabs">
+                    <li class="tabs-title is-active"><a href="#panel1v" aria-selected="true">Address</a></li>
+                    <li class="tabs-title"><a href="#panel2v">Phones</a></li>
+
+                </ul>
+            </div>
+            <div class="cell medium-9">
+                <div class="tabs-content" data-tabs-content="example-tabs">
+                    <div class="tabs-panel is-active" id="panel1v">
+                        <p>Address</p>
+                        <p>Belarus, 220013, Minsk, Independence Avenue, 65</p>
+                    </div>
+                    <div class="tabs-panel" id="panel2v">
+                        <p>Phones</p>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th width="200">Name</th>
+                                <th width="200">Phone</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Security Service</td>
+                                <td>+375(17) 331-00-53</td>
+                            </tr>
+                            <tr>
+                                <td>Legal Department</td>
+                                <td>+375(17) 293-96-96</td>
+                            </tr>
+                            <tr>
+                                <td>Publishing house BNTU</td>
+                                <td>+375(17) 292-43-01</td>
+                            </tr>
+                            <tr>
+                                <td>Selection committee</td>
+                                <td>+375(17) 292-38-42</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>$(document).foundation();</script>
+
+</body>
+</html>
