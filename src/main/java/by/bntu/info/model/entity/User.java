@@ -3,16 +3,17 @@ package by.bntu.info.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @Entity
 //@NoArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String password;
@@ -30,5 +31,10 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public void setPassword(String password) {
+        password = password.replace(" ", "");
+        this.password = password;
     }
 }
