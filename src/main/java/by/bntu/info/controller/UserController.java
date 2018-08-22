@@ -5,8 +5,10 @@ import by.bntu.info.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,8 +22,12 @@ public class UserController {
     private PasswordEncoder encoder;
 
     @GetMapping(value = "/auth")
-    public String getAuth(){
+    public String getAuth(Model model, @RequestParam(value = "error", defaultValue = "")String error){
+        if (!error.equals("")){
+            model.addAttribute("alert", "Incorrect data");
+        }
         return "auth";
+
     }
 
     @GetMapping(value = "/registration")
@@ -35,6 +41,16 @@ public class UserController {
         user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
         return "Success";
+    }
+
+
+
+
+//    AJAX
+    @GetMapping(value = "/checkUsername")
+    @ResponseBody
+    public String processUsername(String username){
+        return userRepository.findUserByUsername(username) == null ? "" : "User with this username already exists";
     }
 
 }

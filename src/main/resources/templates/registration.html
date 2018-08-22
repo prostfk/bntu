@@ -9,7 +9,13 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/style/navbar.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,25 +25,68 @@
     <form action="/registration" th:object="${user}" method="post" onsubmit="return form_submit()">
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" th:field="*{username}" name="username" class="form-control" id="username"
+            <input type="text" th:field="*{username}" onblur="checkUsername()" name="username" class="form-control"
+                   id="username"
                    aria-describedby="emailHelp" placeholder="Enter username">
-            <small id="emailHelp" class="form-text text-muted"></small>
+            <small id="data-username" class="form-text text-muted red"></small>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" th:filed="*{password}" name="password" class="form-control" id="password"
+            <input type="password" th:filed="*{password}" onchange="checkPassword()" name="password" class="form-control"
+                   id="password"
                    placeholder="Password">
+            <small id="data-password" class="form-text text-muted red"></small>
         </div>
         <div class="form-group">
             <label for="passwordAgain">Submit password</label>
-            <input type="password" name="passwordAgain" class="form-control" id="passwordAgain"
+            <input type="password" name="passwordAgain" onkeyup="checkPasswords()" class="form-control"
+                   id="passwordAgain"
                    placeholder="Password again">
+            <small id="data-password-again" class="form-text text-muted red"></small>
+
         </div>
         <input type="submit" class="btn btn-primary" value="Submit">
     </form>
 
 </div>
 
+
+<script>
+
+    function checkUsername() {
+        $.ajax({
+            url: 'checkUsername',
+            data: ({username: $('#username').val()}),
+            success: function (data) {
+                $('#data-username').html(data)
+            }
+        });
+    }
+
+    function checkPassword() {
+        let password = document.getElementById('password').value;
+        let message = '';
+        if (password.length < 3) {
+            message = 'Password is too short'
+        } else if (password.length > 10) {
+            message = 'Password is too long'
+        }
+        $('#data-password').html(message);
+
+
+    }
+
+    function checkPasswords() {
+        let password = document.getElementById('password').value;
+        let passwordAgain = document.getElementById('passwordAgain').value;
+        if (password !== passwordAgain) {
+            $('#data-password-again').html('Password do not match')
+        } else {
+            $('#data-password-again').html('')
+        }
+    }
+
+</script>
 
 <script>
     function form_submit() {
