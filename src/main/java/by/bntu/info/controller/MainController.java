@@ -1,8 +1,10 @@
 package by.bntu.info.controller;
 
 import by.bntu.info.model.entity.Faculty;
+import by.bntu.info.model.entity.News;
 import by.bntu.info.model.entity.Specialty;
 import by.bntu.info.repository.FacultyRepository;
+import by.bntu.info.repository.NewsRepository;
 import by.bntu.info.repository.SpecialtyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +31,13 @@ public class MainController {
     @Autowired
     private SpecialtyRepository specialtyRepository;
 
+    @Autowired
+    private NewsRepository newsRepository;
+
     @GetMapping(value = "/")
-    public String getIndex(){
-        return "index";
+    public ModelAndView getIndex(){
+        List<News> all = newsRepository.findAllByIdIsNotNullOrderByIdDesc();
+        return new ModelAndView("index" , "newsList", all);
     }
 
     @GetMapping(value = "/faculties")
