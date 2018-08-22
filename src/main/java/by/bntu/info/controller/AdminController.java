@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/admin")
-@Secured("ROLE_ADMIN")
+//@Secured("ROLE_ADMIN")
 public class AdminController {
 
     @Autowired

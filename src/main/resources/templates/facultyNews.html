@@ -2,27 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to BNTU</title>
+    <title>Faculty news</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/vendor/bootstrap/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/resources/style/navbar.css" >
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
 </head>
 <body>
-<div th:fragment="navbar">
-    <header class="sticky-shrinknav-header" >
-        <h1 class="sticky-shrinknav-header-title">Belarusian National Technical University</h1>
-        <ul class="menu align-center sticky-shrinknav-menu">
-            <li><a href="/">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="/faculties">Faculties</a></li>
-            <li><a href="/contacts">Contact</a></li>
-        </ul>
-    </header>
-</div>
+<div th:include="~{index.html::navbar}"></div>
 
+<div class="container">
+
+    <div th:each="news : ${newsList}">
+        <div class="card" style="width: 300px;">
+            <div class="card-divider" th:text="${news.title}">
+            </div>
+            <img th:src="${news.path}">
+            <div class="card-section">
+                <h4 th:text="${news.type}"></h4>
+                <p style="overflow: hidden;max-height: 65px" th:text="${news.content}"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
 <script>
@@ -37,6 +43,5 @@
         });
     });
 </script>
-
 </body>
 </html>

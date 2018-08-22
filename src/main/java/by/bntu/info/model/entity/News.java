@@ -19,17 +19,17 @@ public class News {
     private String title;
     private String content;
     private String path;
-    private Long faculty_id;
+    private Long facultyId;
     private String type;
 
     public News() {
     }
 
-    public News(String title, String content, String path, Long faculty_id, String type) {
+    public News(String title, String content, String path, Long facultyId, String type) {
         this.title = title;
         this.content = content;
         this.path = path;
-        this.faculty_id = faculty_id;
+        this.facultyId = facultyId;
         this.type = type;
     }
 

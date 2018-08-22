@@ -12,11 +12,8 @@ public interface NewsRepository extends CrudRepository<News, Long> {
     List<News> findAll();
     News findNewsById(Long id);
     List<News> findNewsByType(String type);
-//    @Query("SELECT n FROM news n WHERE n.faculty_id=(:facultyId)")
-//    List<News> findNewsByFaculty_id(@Param("facultyId") Long facultyId);
 
+    List<News> findNewsByFacultyId(Long facultyId);
 
-//    @Query("SELECT p FROM Person p WHERE LOWER(p.lastName) = LOWER(:lastName)")
-//    public List<Person> find(@Param("lastName") String lastName);
 
 }
