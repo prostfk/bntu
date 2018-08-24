@@ -22,12 +22,6 @@ public class SectionController {
         return new ModelAndView();
     }
 
-    @GetMapping(value = "/faculty/{id}/news")
-    public ModelAndView getFacultyNews(@PathVariable Long id){
-        List<News> newsByFacultyId = newsRepository.findNewsByFacultyId(id);
-        return new ModelAndView("facultyNews", "newsList", newsByFacultyId);
-    }
-
     @GetMapping(value = "/news/{id}")
     public ModelAndView getSingleNews(@PathVariable Long id){
         return new ModelAndView("singleNews", "news", newsRepository.findNewsById(id));

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,6 +40,25 @@ public class AdminController {
         if (news.validate()){
             news.setPath(saveFile(file));
             newsRepository.save(news);
+        }
+        return "redirect:/admin";
+    }
+
+    @GetMapping(value = "/edit/{id}")
+    public ModelAndView editNews(@PathVariable("id")Long id){
+        return new ModelAndView("editNews", "news", newsRepository.findNewsById(id));
+    }
+
+    @PostMapping(value = "/edit/{id}")
+    public String submitChanges(@PathVariable Long id, News news, MultipartFile file){
+        News old = newsRepository.findNewsById(id);
+        if (news.validate()){
+            if (file.getOriginalFilename().equals("")){
+                news.setPath(old.getPath());
+            }else{
+                news.setPath(saveFile(file));
+            }
+            newsRepository.update(news.getTitle(),news.getContent(),news.getPath(),news.getFacultyId(),news.getType(),news.getId());
         }
         return "redirect:/admin";
     }

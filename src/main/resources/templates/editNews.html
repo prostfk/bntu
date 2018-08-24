@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div th:include="~{adminIndex.html::navbar}"></div>
+
+<div class="container">
+    <form th:object="${news}" th:action="@{'/admin/edit/' + ${news.id}}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input th:filed="*{title}" type="text" name="title" class="form-control" id="title" placeholder="Enter title">
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea th:field="*{content}" name="content" class="form-control" style="resize: none; height: 300px;" id="content" placeholder="Content here"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="faculty-select">Select faculty</label>
+            <select th:filed="*{facultyId}" name="facultyId" class="form-control" id="faculty-select">
+                <option value="0">NONE</option>
+                <option value="1">ATF</option>
+                <option value="2">FGDE</option>
+                <option value="3">MSF</option>
+                <option value="4">MTF</option>
+                <option value="5">FMMP</option>
+                <!--5-->
+                <option value="6">EF</option>
+                <option value="7">FITR</option>
+                <option value="8">FTUG</option>
+                <option value="9">IPF</option>
+                <option value="10">FES</option>
+                <!--10-->
+                <option value="11">AF</option>
+                <option value="12">SF</option>
+                <option value="13">PSF</option>
+                <option value="14">FTK</option>
+                <option value="15">VTF</option>
+                <option value="16">STF</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="type-select">Select faculty</label>
+            <select class="form-control" name="type" th:filed="*{type}" id="type-select">
+                <option value="Science">Science</option>
+                <option value="Students">Students</option>
+                <option value="Media">Media</option>
+                <option value="It">It</option>
+                <option value="Regulations">Regulations</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="file">Add photo</label>
+            <input class="form-control" id="file" name="file" type="file" placeholder="Content here"/>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+</div>
+
+
+</body>
+</html>
