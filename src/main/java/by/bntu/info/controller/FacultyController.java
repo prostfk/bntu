@@ -40,6 +40,11 @@ public class FacultyController {
     }
 
     @GetMapping(value = "/faculty/{id}")
+    public ModelAndView getFacultyPage(@PathVariable Long id){
+        return new ModelAndView("facultyPage", "path",String.format("/resources/files/facultyLogo/%d.jpg", id));
+    }
+
+    @GetMapping(value = "/faculty/specialities/{id}")
     public ModelAndView getSpecialties(@PathVariable Long id){
         List<Specialty> specialtiesByFacultyId = specialtyRepository.findSpecialtiesByFacultyId(id);
         return new ModelAndView("specialties", "specialties", specialtiesByFacultyId);

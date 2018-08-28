@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FeedBack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/style/navbar.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/resources/style/feedback.css">
+</head>
+<body>
+
+<div th:include="~{index.html :: navbar}"></div>
+
+<div class="container">
+    <form action="/feedback" method="post" th:object="${message}">
+        <div class="form-part">
+            <label for="username">Username</label>
+            <input class="form-input-green" name="username" type="text" id="username" placeholder="username" th:filed="*{username}">
+        </div>
+        <div class="form-part">
+            <label for="email">Email</label>
+            <input class="form-input-green" name="email" type="email" id="email" placeholder="email" th:field="*{email}">
+        </div>
+        <div class="form-part">
+            <label for="text">Message</label>
+            <input class="form-input-green" name="text" type="text" placeholder="text" id="text" th:filed="*{text}">
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary"/>
+    </form>
+</div>
+
+</body>
+</html>

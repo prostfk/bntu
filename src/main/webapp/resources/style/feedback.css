@@ -1,0 +1,12 @@
+.form-part{
+    margin-top: 3%;
+}
+
+.form-input-green {
+    border:none;
+    outline: 0 !important;
+    display: table;
+    border-bottom: 1px solid green;
+    height: 40px;
+    font-size: 15px;
+}

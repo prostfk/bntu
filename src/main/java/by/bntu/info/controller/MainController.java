@@ -1,13 +1,17 @@
 package by.bntu.info.controller;
 
 import by.bntu.info.model.entity.Faculty;
+import by.bntu.info.model.entity.Message;
 import by.bntu.info.model.entity.News;
 import by.bntu.info.repository.FacultyRepository;
+import by.bntu.info.repository.MessageRepository;
 import by.bntu.info.repository.NewsRepository;
 import by.bntu.info.repository.SpecialtyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
@@ -18,7 +22,7 @@ public class MainController {
     private FacultyRepository facultyRepository;
 
     @Autowired
-    private SpecialtyRepository specialtyRepository;
+    private MessageRepository messageRepository;
 
     @Autowired
     private NewsRepository newsRepository;
@@ -38,6 +42,18 @@ public class MainController {
     public ModelAndView getFaculties(){
         List<Faculty> all = facultyRepository.findAll();
         return new ModelAndView("faculties", "faculties", all);
+    }
+
+    @GetMapping(value = "/feedback")
+    public ModelAndView getFeedBack(){
+        return new ModelAndView("feedBack", "message", new Message());
+    }
+
+    @PostMapping(value = "/feedback")
+    @ResponseBody
+    public Message retMessage(Message message){
+        messageRepository.save(message);
+        return message;
     }
 
 }

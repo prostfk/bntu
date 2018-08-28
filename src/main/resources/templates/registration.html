@@ -65,13 +65,13 @@
 
     function checkPassword() {
         let password = document.getElementById('password').value;
-        let message = '';
+        let text = '';
         if (password.length < 3) {
-            message = 'Password is too short'
+            text = 'Password is too short'
         } else if (password.length > 10) {
-            message = 'Password is too long'
+            text = 'Password is too long'
         }
-        $('#data-password').html(message);
+        $('#data-password').html(text);
 
 
     }
