@@ -12,6 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/resources/style/cards.css"/>
 </head>
 <body>
 <div th:fragment="navbar">
@@ -30,10 +31,10 @@
 <div class="container">
 
     <div th:each="news : ${newsList}">
-        <div class="card columns" style="width: 300px;">
-            <div class="card-divider" th:text="${news.title}">
+        <div class="news-card columns" style="width: 300px;">
+            <div class="card-divider news-header" th:text="${news.title}">
             </div>
-            <img th:src="${news.path}" style="max-width: 200px;max-height: 200px;margin: auto">
+            <img th:src="${news.path}" style="margin: auto">
             <div class="card-section">
                 <h4 th:text="'Type: ' + ${news.type}"></h4>
                 <p style="overflow: hidden;max-height: 65px" th:text="${news.content}"></p>
@@ -47,7 +48,6 @@
 <script>
     let slideIndex = 0;
     showSlides();
-
     function showSlides() {
         let i;
         let slides = document.getElementsByClassName("mySlides");
@@ -68,18 +68,6 @@
     }
 </script>
 
-<script>
-    $(function () {
-        $(window).scroll(function () {
-            let winTop = $(window).scrollTop();
-            if (winTop >= 30) {
-                $("body").addClass("sticky-shrinknav-wrapper");
-            } else {
-                $("body").removeClass("sticky-shrinknav-wrapper");
-            }
-        });
-    });
-</script>
-
+<script src="/resources/js/frontendScripts.js"></script>
 </body>
 </html>

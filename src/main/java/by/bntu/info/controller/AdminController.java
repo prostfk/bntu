@@ -1,6 +1,7 @@
 package by.bntu.info.controller;
 
 import by.bntu.info.model.entity.News;
+import by.bntu.info.repository.MessageRepository;
 import by.bntu.info.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -25,6 +26,9 @@ public class AdminController {
     @Autowired
     private NewsRepository newsRepository;
 
+    @Autowired
+    private MessageRepository messageRepository;
+
     @GetMapping(value = "")
     public String getIndex(){
         return "adminIndex";
@@ -42,6 +46,11 @@ public class AdminController {
             newsRepository.save(news);
         }
         return "redirect:/admin";
+    }
+
+    @GetMapping(value = "/feedback")
+    public ModelAndView findUserFeedback(){
+        return new ModelAndView("adminFeedbackList", "messages", messageRepository.findAll());
     }
 
     @GetMapping(value = "/edit/{id}")
