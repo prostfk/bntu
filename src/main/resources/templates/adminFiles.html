@@ -22,7 +22,7 @@
         <tr th:each="file : ${files}">
             <td th:text="${file.name}"></td>
             <td th:text="${file.isDirectory()} ? 'Folder' : 'File'"></td>
-            <td><a th:href="'/admin/files/'+ ${currentFile} + '/' + ${file.name}" class="btn btn-primary">Go into</a></td>
+            <td><a th:href="'/admin/files/' + (${currentFile}==null ? '' : ${currentFile} + '/') + ${file.name}" class="btn btn-primary">Go into</a></td>
         </tr>
 
         </tbody>
