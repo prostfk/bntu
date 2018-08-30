@@ -18,7 +18,13 @@
 
 <div class="container">
     <div class="text-file-card">
-        <p th:text="${text}"></p>
+        <div th:if="${text}!=null">
+            <p th:text="${text}"></p>
+        </div>
+        <div th:if="${picture}!=null">
+            <img th:src="${picture}" alt="file"/>
+        </div>
+
     </div>
 </div>
 

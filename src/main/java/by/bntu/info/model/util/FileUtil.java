@@ -18,4 +18,14 @@ public class FileUtil {
         return "incorrect FileName";
     }
 
+    public static boolean isFile(String path){
+        for (String s : new String[]{".png", ".jpg", "jpeg", "css", "txt", "js"}) {
+            if (path.endsWith(s)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

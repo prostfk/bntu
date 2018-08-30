@@ -35,20 +35,41 @@ public class AdminFileController {
     @GetMapping(value = "/files/{path}/{file}.{format}")
     @ResponseBody
     public ModelAndView check(@PathVariable String path, @PathVariable String file, @PathVariable String format) {
-        if (format.endsWith("txt") || format.endsWith("js") || format.endsWith("css")) {
+        ModelAndView modelAndView = new ModelAndView("adminReadFile", "filename", file);
+        if (format.equals("txt") || format.equals("js") || format.equals("css")) {
             file = String.format("%s.%s", file, format);
-            ModelAndView modelAndView = new ModelAndView("adminReadFile", "filename", file);
             modelAndView.addObject("text", FileUtil.readFromFile(String.format("%s/%s/%s", RESOURCES, path, file)));
+            return modelAndView;
+        } else if (format.equals("png") || format.equals("jpg") || format.equals("jpeg")) {
+            file = String.format("%s.%s", file, format);
+            System.out.println(path);
+            modelAndView.addObject("picture", String.format("%s/%s/%s", "/resources/", path, file));
             return modelAndView;
         }
         return null;
     }
 
     @GetMapping(value = "/files/{otherPath}/**")
-    public ModelAndView getAll(@PathVariable String otherPath, HttpServletRequest request){
+    public ModelAndView getAll(@PathVariable String otherPath, HttpServletRequest request) {
         String url = request.getRequestURL().toString();
-        String correctPath = url.split("/admin/files/")[1];
-        return searchFiles(correctPath);
+        if (FileUtil.isFile(url)) {
+            String[] details = url.split("/");
+            String filename = details[details.length - 1];
+            StringBuilder stringBuilder = new StringBuilder();
+            details = url.split("/");
+            details[0] = "";
+            for (int i = 5; i < details.length - 1; i++) {
+                if (details[i].endsWith(filename)){
+                    break;
+                }
+                stringBuilder.append(String.format("%s/",details[i]));
+            }
+            String[] split = filename.split("\\.");
+            return check(stringBuilder.toString(),split[0],split[1]);
+        } else {
+            String correctPath = url.split("/admin/files/")[1];
+            return searchFiles(correctPath);
+        }
     }
 
 
