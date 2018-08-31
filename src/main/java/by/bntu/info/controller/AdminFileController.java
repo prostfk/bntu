@@ -2,10 +2,8 @@ package by.bntu.info.controller;
 
 import by.bntu.info.model.util.FileUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +68,15 @@ public class AdminFileController {
             String correctPath = url.split("/admin/files/")[1];
             return searchFiles(correctPath);
         }
+    }
+
+    @PostMapping(value = "/files/upload")
+    public String saveFile(MultipartFile file, HttpServletRequest request){
+        String url = request.getHeader("referer");
+//        String url = request.getRequestURL().toString();
+        String path = url.split("/files/")[1];
+        FileUtil.save(file,path);
+        return "redirect:/admin/files";
     }
 
 

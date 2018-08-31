@@ -1,6 +1,8 @@
 package by.bntu.info.model.util;
 
-import java.io.FileInputStream;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.*;
 
 public class FileUtil {
 
@@ -25,6 +27,21 @@ public class FileUtil {
             }
         }
         return false;
+    }
+
+    public static void save(MultipartFile file,String path){
+        String filePath = String.format("src/main/webapp/resources/%s/", path);
+        File javaFile = new File(filePath + file.getOriginalFilename());
+        try {
+            byte[] bytes = file.getBytes();
+            javaFile = new File(javaFile.getAbsolutePath());
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(javaFile));
+            stream.write(bytes);
+            stream.flush();
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

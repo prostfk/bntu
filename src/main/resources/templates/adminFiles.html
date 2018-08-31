@@ -10,7 +10,17 @@
 <div th:include="~{adminIndex.html :: navbar}"></div>
 
 <div class="container">
-    <input action="action" type="button" class="btn btn-secondary" onclick="history.go(-1);" value="<-Back" />
+    <!--<input action="action" type="button" class="btn btn-secondary" onclick="history.go(-1);" value="<-Back" />-->
+    <input type="button" class="btn btn-secondary" onclick="history.go(-1);" value="<-Back" />
+
+    <form action="/admin/files/upload" method="post" enctype="multipart/form-data" class="form-inline">
+        <div class="form-group mb-2">
+            <label for="file">Upload new file here</label>
+            <input type="file" class="bnt btn-success" id="file" name="file"/>
+        </div>
+        <input type="submit" class="btn btn-primary" placeholder="Submit">
+    </form>
+
     <table class="table">
         <thead>
         <tr>
