@@ -21,7 +21,7 @@ public class FileUtil {
     }
 
     public static boolean isFile(String path){
-        for (String s : new String[]{".png", ".jpg", "jpeg", "css", "txt", "js"}) {
+        for (String s : new String[]{".png", ".jpg", "jpeg", "css", "txt", "js", "json"}) {
             if (path.endsWith(s)){
                 return true;
             }
@@ -45,4 +45,10 @@ public class FileUtil {
     }
 
 
+    public static void remove(String path) {
+        File file = new File(String.format("src/main/webapp/resources/%s", path));
+        if (file.exists()||!file.isDirectory()){
+            file.delete();
+        }
+    }
 }

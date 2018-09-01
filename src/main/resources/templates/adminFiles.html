@@ -20,6 +20,8 @@
         </div>
         <input type="submit" class="btn btn-primary" placeholder="Submit">
     </form>
+    <form action="/admin/files/remove" method="post" enctype="multipart/form-data" class="form-inline"></form>
+
 
     <table class="table">
         <thead>
@@ -27,6 +29,7 @@
             <th scope="col">File</th>
             <th scope="col">Type</th>
             <th scope="col">Goto</th>
+            <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +37,12 @@
             <td th:text="${file.name}"></td>
             <td th:text="${file.isDirectory()} ? 'Folder' : 'File'"></td>
             <td><a th:href="'/admin/files/' + (${currentFile}==null ? '' : ${currentFile} + '/') + ${file.name}" class="btn btn-primary">Go into</a></td>
+            <td>
+                <form action="/admin/files/remove" method="post">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                    <input type="text" width="1px" name="path" th:value="(${currentFile}==null ? '' : ${currentFile} + '/' + ${file.name})" style="visibility: hidden">
+                </form>
+            </td>
         </tr>
 
         </tbody>

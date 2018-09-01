@@ -34,7 +34,7 @@ public class AdminFileController {
     @ResponseBody
     public ModelAndView check(@PathVariable String path, @PathVariable String file, @PathVariable String format) {
         ModelAndView modelAndView = new ModelAndView("adminReadFile", "filename", file);
-        if (format.equals("txt") || format.equals("js") || format.equals("css")) {
+        if (format.equals("txt") || format.equals("js") || format.equals("css") || format.equals("json")) {
             file = String.format("%s.%s", file, format);
             modelAndView.addObject("text", FileUtil.readFromFile(String.format("%s/%s/%s", RESOURCES, path, file)));
             return modelAndView;
@@ -57,13 +57,13 @@ public class AdminFileController {
             details = url.split("/");
             details[0] = "";
             for (int i = 5; i < details.length - 1; i++) {
-                if (details[i].endsWith(filename)){
+                if (details[i].endsWith(filename)) {
                     break;
                 }
-                stringBuilder.append(String.format("%s/",details[i]));
+                stringBuilder.append(String.format("%s/", details[i]));
             }
             String[] split = filename.split("\\.");
-            return check(stringBuilder.toString(),split[0],split[1]);
+            return check(stringBuilder.toString(), split[0], split[1]);
         } else {
             String correctPath = url.split("/admin/files/")[1];
             return searchFiles(correctPath);
@@ -71,13 +71,19 @@ public class AdminFileController {
     }
 
     @PostMapping(value = "/files/upload")
-    public String saveFile(MultipartFile file, HttpServletRequest request){
+    public String saveFile(MultipartFile file, HttpServletRequest request) {
         String url = request.getHeader("referer");
 //        String url = request.getRequestURL().toString();
         String path = url.split("/files/")[1];
-        FileUtil.save(file,path);
-        return "redirect:/admin/files";
+        FileUtil.save(file, path);
+        return "redirect:/admin/files/" + path;
     }
 
-
+    @PostMapping(value = "/files/remove")
+    public String removeFile(HttpServletRequest request, @RequestParam String path){
+        String url = request.getHeader("referer");
+        String oldPath = url.split("/files/")[1];
+        FileUtil.remove(path);
+        return "redirect:/admin/files/" + oldPath;
+    }
 }
